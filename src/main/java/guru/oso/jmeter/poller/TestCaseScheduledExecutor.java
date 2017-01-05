@@ -18,18 +18,21 @@ public class TestCaseScheduledExecutor {
     private ScheduledExecutorService scheduledExecutorService;
 
     private String messageNumber;
+    private TestDataStore dataStore;
 
-    public TestCaseScheduledExecutor(final String messageNumber) {
+
+    public TestCaseScheduledExecutor(final String messageNumber, final TestDataStore dataStore) {
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
+        this.dataStore = dataStore;
         this.messageNumber = messageNumber;
 
     }
 
     public TestCaseTimestamp pollForTestCase(final int delay) {
 
-        TimestampCallable callable = new TimestampCallable();
+        TimestampCallable callable = new TimestampCallable(dataStore);
 
         ScheduledFuture<TestCaseTimestamp> scheduledFuture = scheduledExecutorService.schedule(callable, delay, TimeUnit.SECONDS);
 
@@ -53,9 +56,9 @@ public class TestCaseScheduledExecutor {
 
         TestDataStore store;
 
-        public TimestampCallable() {
+        public TimestampCallable(final TestDataStore dataStore) {
 
-            this.store = new TestCaseDataStore("mule_user", "mule_user", "localhost", "mule_perf_test");
+            this.store = dataStore;
 
         }
 

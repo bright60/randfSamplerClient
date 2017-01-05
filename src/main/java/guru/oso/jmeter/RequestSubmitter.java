@@ -1,7 +1,9 @@
 package guru.oso.jmeter;
 
 import guru.oso.jmeter.data.TestCaseTimestamp;
+import guru.oso.jmeter.data.TestDataStore;
 import guru.oso.jmeter.dom.IDocDOM;
+import guru.oso.jmeter.dynamo.TestCaseDynamo;
 import guru.oso.jmeter.http.IDocHTTPClient;
 import guru.oso.jmeter.poller.TestCaseScheduledExecutor;
 
@@ -41,7 +43,12 @@ public class RequestSubmitter {
         String idocXML = idocDOM.toXML();
         long currentTime = System.currentTimeMillis();
         String response = submitRequest(idocXML, params);
-        TestCaseScheduledExecutor executor = new TestCaseScheduledExecutor(messageNumber);
+
+        String accessKey = params.get("ACCESS_KEY");
+        String secretKey = params.get("SECRET_KEY");
+        TestDataStore dataStore = new TestCaseDynamo(accessKey, secretKey);
+
+        TestCaseScheduledExecutor executor = new TestCaseScheduledExecutor(messageNumber, dataStore);
 
         String delay = params.get("DELAY");
         TestCaseTimestamp timestamp = executor.pollForTestCase(Integer.parseInt(delay));

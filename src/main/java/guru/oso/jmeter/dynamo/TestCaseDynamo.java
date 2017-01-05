@@ -3,12 +3,11 @@ package guru.oso.jmeter.dynamo;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
-import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.*;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.model.*;
+import com.amazonaws.services.dynamodbv2.util.TableUtils;
 
 import guru.oso.jmeter.data.NullTestCaseTimeStamp;
 import guru.oso.jmeter.data.RealTestCaseTimestamp;
@@ -32,13 +31,18 @@ public class TestCaseDynamo implements TestDataStore {
     private AmazonDynamoDBClient client;
     private DynamoDB db;
     private Table table;
+    private CreateTableRequest createTableRequest;
 
     public TestCaseDynamo(final String accessKey, final String secretKey) {
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
         this.client = new AmazonDynamoDBClient(credentials);
         this.db = new DynamoDB(client);
-        this.table = this.createTable();
+        this.createTableRequest = this.createTableRequest(TABLE_NAME);
+
+        TableUtils.createTableIfNotExists(this.client, this.createTableRequest);
+
+        this.table = this.db.getTable(TABLE_NAME);
 
     }
 
@@ -46,10 +50,6 @@ public class TestCaseDynamo implements TestDataStore {
     public List<TestCaseTimestamp> getAllTestCases() {
 
         List<TestCaseTimestamp> tStamps = new ArrayList<>();
-
-        if (table == null) {
-            table = this.createTable();
-        }
 
         ScanRequest scanRequest = new ScanRequest().withTableName(TABLE_NAME);
 
@@ -69,15 +69,9 @@ public class TestCaseDynamo implements TestDataStore {
     @Override
     public void insertTestCase(TestCaseTimestamp timestamp) {
 
-        if (this.table == null) {
-            this.table = this.createTable();
-        } else {
-            logger.info("Table:" + table.getTableName());
-        }
-
         try {
             System.out.println("Adding a new item...");
-            PutItemOutcome outcome = table.putItem(new Item()
+            PutItemOutcome outcome = this.table.putItem(new Item()
                     .withPrimaryKey(TestDataStore.MESSAGE_NUMBER, timestamp.getMessageNumber())
                     .withLong(TestDataStore.MESSAGE_TIMESTAMP, timestamp.getTimestamp())
                     .withString(TestDataStore.MESSAGE_TYPE, timestamp.getMessageType()));
@@ -93,25 +87,36 @@ public class TestCaseDynamo implements TestDataStore {
     @Override
     public void dropAllTestCases() {
 
-        if (table != null) {
-            table.delete();
+        ScanRequest scanRequest = new ScanRequest().withTableName(TABLE_NAME);
 
-            try {
-                table.waitForDelete();
-            } catch (InterruptedException ie) {
-                logger.error("Delete interrupted!", ie);
+        ScanResult result = this.client.scan(scanRequest);
+        for (Map<String, AttributeValue> item : result.getItems()){
+
+            Set<Map.Entry<String,AttributeValue>> entries = item.entrySet();
+            for (Map.Entry<String, AttributeValue> entry : entries) {
+
+                if (entry.getKey().equals(MESSAGE_NUMBER)) {
+                    PrimaryKey pKey = new PrimaryKey(MESSAGE_NUMBER, entry.getValue().getS());
+                    DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey(pKey);
+
+                    try {
+                        logger.info("Attempting a conditional delete...");
+                        table.deleteItem(deleteItemSpec);
+                        logger.info("DeleteItem succeeded");
+                    } catch (Exception e) {
+                        logger.error("Unable to delete item: " + entry.getValue().getS());
+                    }
+
+                }
+
             }
-            table = null;
+
         }
 
     }
 
     @Override
     public TestCaseTimestamp findTestCase(String messageNumber) {
-
-        if (table == null) {
-            table = this.createTable();
-        }
 
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(MESSAGE_NUMBER, messageNumber);
 
@@ -131,17 +136,14 @@ public class TestCaseDynamo implements TestDataStore {
 
     }
 
-    private Table createTable() {
+    private Table createTable(final String tableName) {
 
         Table table;
 
         try {
 
             logger.info("Attempting to create table; please wait...");
-            table = this.db.createTable(TABLE_NAME,
-                    Arrays.asList(new KeySchemaElement(MESSAGE_NUMBER, KeyType.HASH)),
-                    Arrays.asList(new AttributeDefinition(MESSAGE_NUMBER, ScalarAttributeType.S)),
-                    new ProvisionedThroughput(10L, 10L));
+            table = this.db.createTable(this.createTableRequest);
             table.waitForActive();
             logger.info("Success.  Table status: " + table.getDescription().getTableStatus());
 
@@ -152,6 +154,18 @@ public class TestCaseDynamo implements TestDataStore {
 
         return table;
 
+    }
+
+    private CreateTableRequest createTableRequest(final String tableName) {
+
+        CreateTableRequest request = new CreateTableRequest();
+
+        request.setTableName(tableName);
+        request.setKeySchema(Arrays.asList(new KeySchemaElement(MESSAGE_NUMBER, KeyType.HASH)));
+        request.setAttributeDefinitions(Arrays.asList(new AttributeDefinition(MESSAGE_NUMBER, ScalarAttributeType.S)));
+        request.setProvisionedThroughput(new ProvisionedThroughput(10L, 10L));
+
+        return request;
     }
 
     private TestCaseTimestamp toTestCaseTimestamp(final Item item) {
