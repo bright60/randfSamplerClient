@@ -1,4 +1,4 @@
-package guru.oso.jmeter;
+package guru.oso.jmeter.props;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +21,8 @@ public class PropertiesResolver {
     public static final String MATMAS05 = "MATMAS05_IDoc_File";
     public static final String ZDELVRY03 ="ZDELVRY03_IDoc_File";
     public static final String SCHEME_AND_HOST ="SCHEME_AND_HOST";
-    public static final String REMOTE_USERNAME = "REMOTE_USERNAME";
-    public static final String REMOTE_PASSWORD = "REMOTE_PASSWORD";
+    public static final String ACCESS_KEY = "ACCESS_KEY";
+    public static final String SECRET_KEY = "SECRET_KEY";
 
     private Properties properties;
 

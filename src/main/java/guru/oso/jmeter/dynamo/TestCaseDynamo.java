@@ -33,11 +33,9 @@ public class TestCaseDynamo implements TestDataStore {
     private DynamoDB db;
     private Table table;
 
-    public TestCaseDynamo() {
+    public TestCaseDynamo(final String accessKey, final String secretKey) {
 
-        String access = "AKIAIUSH3KWK7ZPRAI6Q";
-            String secret = "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";
-        AWSCredentials credentials = new BasicAWSCredentials(access, secret);
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
         this.client = new AmazonDynamoDBClient(credentials);
         this.db = new DynamoDB(client);
         this.table = this.createTable();

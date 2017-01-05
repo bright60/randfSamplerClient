@@ -14,3 +14,6 @@
 # Maven
 log/
 target/
+
+# Dev
+/src/main/resources/test.properties

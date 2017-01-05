@@ -3,11 +3,13 @@ package guru.oso.jmeter.dynamo;
 import guru.oso.jmeter.data.RealTestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestamp;
 import guru.oso.jmeter.data.TestDataStore;
+import guru.oso.jmeter.props.PropertiesResolver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -24,14 +26,20 @@ public class TestCaseDynamoTest {
     @Before
     public void setUp() throws Exception {
 
-        this.store = new TestCaseDynamo();
+        PropertiesResolver resolver = new PropertiesResolver("src/main/resources/test.properties");
+        Properties props = resolver.getProperties();
+
+        String accessKey = props.getProperty(PropertiesResolver.ACCESS_KEY);
+        String secretKey = props.getProperty(PropertiesResolver.SECRET_KEY);
+
+        this.store = new TestCaseDynamo(accessKey, secretKey);
 
     }
 
     @After
     public void tearDown() throws Exception {
 
-        this.store.dropAllTestCases();;
+        this.store.dropAllTestCases();
 
         this.store = null;
 
