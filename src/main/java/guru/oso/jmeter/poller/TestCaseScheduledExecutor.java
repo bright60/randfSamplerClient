@@ -1,6 +1,7 @@
 package guru.oso.jmeter.poller;
 
 import guru.oso.jmeter.data.TestCaseTimestamp;
+import guru.oso.jmeter.data.TestDataStore;
 import guru.oso.jmeter.mongo.TestCaseDataStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,7 @@ public class TestCaseScheduledExecutor {
 
     private class TimestampCallable implements Callable<TestCaseTimestamp> {
 
-        TestCaseDataStore store;
+        TestDataStore store;
 
         public TimestampCallable() {
 

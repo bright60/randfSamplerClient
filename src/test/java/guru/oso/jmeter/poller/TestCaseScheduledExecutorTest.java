@@ -3,6 +3,7 @@ package guru.oso.jmeter.poller;
 import guru.oso.jmeter.data.NullTestCaseTimeStamp;
 import guru.oso.jmeter.data.RealTestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestamp;
+import guru.oso.jmeter.data.TestDataStore;
 import guru.oso.jmeter.mongo.TestCaseDataStore;
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class TestCaseScheduledExecutorTest {
 
     private TestCaseScheduledExecutor executor;
-    private TestCaseDataStore store;
+    private TestDataStore store;
     private TestCaseTimestamp timestamp;
 
     @Before
