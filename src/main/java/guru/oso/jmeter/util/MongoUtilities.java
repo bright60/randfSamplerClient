@@ -5,7 +5,6 @@ import com.mongodb.DBObject;
 import guru.oso.jmeter.data.RealTestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestampDAO;
-import org.bson.Document;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -17,6 +16,8 @@ import java.time.format.DateTimeFormatter;
  * Created by BC on 1/4/17.
  */
 public class MongoUtilities {
+
+    /* Only for later versions of the MongoDB driver.
 
     public static TestCaseTimestamp toTestCaseTimestamp(final Document document) {
 
@@ -47,7 +48,7 @@ public class MongoUtilities {
         return new Document(TestCaseTimestampDAO.MESSAGE_NUMBER, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TYPE, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TIMESTAMP, formattedDateTime);
 
     }
-
+*/
     public static TestCaseTimestamp toTestCaseTimestamp(final DBObject dbObj) {
 
         TestCaseTimestamp tct = new RealTestCaseTimestamp();
