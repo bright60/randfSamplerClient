@@ -187,12 +187,16 @@ public class TestCaseTimestampDAOMySQL implements TestCaseTimestampDAO {
 
             rs = stmt.executeQuery(queryBuilder.toString());
 
-            while (rs.next()) {
-                timestamp = new RealTestCaseTimestamp();
-                timestamp.setMessageNumber(rs.getString(MESSAGE_NUMBER));
-                timestamp.setMessageType(rs.getString(MESSAGE_TYPE));
-                timestamp.setTimestamp(rs.getLong(MESSAGE_TIMESTAMP));
-            }   
+            if (rs.isBeforeFirst() ) {
+
+                while (rs.next()) {
+                    timestamp = new RealTestCaseTimestamp();
+                    timestamp.setMessageNumber(rs.getString(MESSAGE_NUMBER));
+                    timestamp.setMessageType(rs.getString(MESSAGE_TYPE));
+                    timestamp.setTimestamp(rs.getLong(MESSAGE_TIMESTAMP));
+                }
+
+            }
 
         } catch (SQLException ex) {
 
@@ -206,6 +210,10 @@ public class TestCaseTimestampDAOMySQL implements TestCaseTimestampDAO {
             MySQLUtils.closeQuietly(stmt);
             MySQLUtils.closeQuietly(conn);
 
+        }
+
+        if (timestamp == null) {
+            timestamp = new NullTestCaseTimeStamp();
         }
 
         return timestamp;

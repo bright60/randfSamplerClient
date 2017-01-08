@@ -17,21 +17,21 @@ public class TestCaseScheduledExecutor {
     private ScheduledExecutorService scheduledExecutorService;
 
     private String messageNumber;
-    private TestCaseTimestampDAO dataStore;
+    private TestCaseTimestampDAO dao;
 
 
-    public TestCaseScheduledExecutor(final String messageNumber, final TestCaseTimestampDAO dataStore) {
+    public TestCaseScheduledExecutor(final String messageNumber, final TestCaseTimestampDAO dao) {
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
-        this.dataStore = dataStore;
+        this.dao = dao;
         this.messageNumber = messageNumber;
 
     }
 
     public TestCaseTimestamp pollForTestCase(final int delay) {
 
-        TimestampCallable callable = new TimestampCallable(dataStore);
+        TimestampCallable callable = new TimestampCallable(dao);
 
         ScheduledFuture<TestCaseTimestamp> scheduledFuture = scheduledExecutorService.schedule(callable, delay, TimeUnit.SECONDS);
 

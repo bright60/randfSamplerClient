@@ -7,22 +7,26 @@ import guru.oso.jmeter.data.TestCaseTimestampDAO;
 import guru.oso.jmeter.data.TestCaseTimestampDAOMySQL;
 import guru.oso.jmeter.props.PropertiesResolver;
 
+import guru.oso.jmeter.utils.TestUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Properties;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by BC on 12/26/16.
  */
 public class TestCaseScheduledExecutorTest {
 
-    private TestCaseScheduledExecutor executor;
-    private TestCaseTimestampDAO store;
-    private TestCaseTimestamp timestamp;
+    private static int POLLING_TIME = 5;
+
+    private TestCaseTimestampDAO dao;
+    private TestCaseTimestamp expectedTimestamp;
 
     @Before
     public void setUp() throws Exception {
@@ -30,54 +34,56 @@ public class TestCaseScheduledExecutorTest {
         PropertiesResolver resolver = new PropertiesResolver("src/main/resources/test.properties");
         Properties props = resolver.getProperties();
 
-        String accessKey = props.getProperty(PropertiesResolver.ACCESS_KEY);
-        String secretKey = props.getProperty(PropertiesResolver.SECRET_KEY);
+        String mysql_host = props.getProperty("MYSQL_HOST");
 
-        this.store = new TestCaseTimestampDAOMySQL("104.154.236.96");
-        //        this.store = new TestCaseTimestampDAOMongo("mule_user", "mule_user", "localhost", "mule_perf_test");
+        this.dao = new TestCaseTimestampDAOMySQL(mysql_host);
+        //        this.dao = new TestCaseTimestampDAOMongo("mule_user", "mule_user", "localhost", "mule_perf_test");
 
-        timestamp = this.createTimestamp("0000000000000001",1482533994L);
-        this.executor = new TestCaseScheduledExecutor("0000000000000001", this.store);
+        String uuid = UUID.randomUUID().toString();
+
+        this.expectedTimestamp = TestUtils.createTimestamp(uuid);
 
     }
 
     @After
     public void tearDown() throws Exception {
 
-        this.executor = null;
-        this.store = null;
-        this.timestamp = null;
+        this.dao.dropAllTestCases();
+        this.dao = null;
+        this.expectedTimestamp = null;
 
     }
 
     @Test
-    public void schedule() throws Exception {
+    public void scheduleReal() throws Exception {
 
-        this.store.insertTestCase(timestamp);
+        this.dao.insertTestCase(this.expectedTimestamp);
 
-        TestCaseTimestamp timestamp = this.executor.pollForTestCase(10);
-        if (timestamp instanceof RealTestCaseTimestamp) {
-            System.out.println("Real Test Case");
-            assertEquals("0000000000000001", timestamp.getMessageNumber());
-            assertEquals(Long.valueOf(1482533994L), timestamp.getTimestamp());
-        } else if (timestamp instanceof NullTestCaseTimeStamp){
-            System.out.println("Null Test Case");
-            assertEquals(TestCaseTimestamp.NULL_MESSAGE_NUMBER, timestamp.getMessageNumber());
-            assertEquals(TestCaseTimestamp.NULL_TIMESTAMP, timestamp.getTimestamp());
-        }
+        TestCaseScheduledExecutor executor = new TestCaseScheduledExecutor(this.expectedTimestamp.getMessageNumber(), this.dao);
+        TestCaseTimestamp timestamp = executor.pollForTestCase(POLLING_TIME);
 
-//        this.store.dropAllTestCases();
+        System.out.println("Real Test Case");
+        assertTrue(timestamp instanceof RealTestCaseTimestamp);
+        assertEquals(this.expectedTimestamp.getMessageNumber(), timestamp.getMessageNumber());
+        assertEquals(this.expectedTimestamp.getMessageType(), timestamp.getMessageType());
+        assertEquals(this.expectedTimestamp.getTimestamp(), timestamp.getTimestamp());
+
 
     }
 
-    private TestCaseTimestamp createTimestamp(final String mNumber, final Long timestamp) {
+    @Test
+    public void scheduleNull() throws Exception {
 
-        TestCaseTimestamp tct = new RealTestCaseTimestamp();
-        tct.setMessageNumber(mNumber);
-        tct.setMessageType(TestCaseTimestampDAO.MESSAGE_TYPE);
-        tct.setTimestamp(timestamp);
+        this.dao.insertTestCase(this.expectedTimestamp);
 
-        return tct;
+        TestCaseScheduledExecutor executor = new TestCaseScheduledExecutor("null", this.dao);
+        TestCaseTimestamp timestamp = executor.pollForTestCase(POLLING_TIME);
+
+        System.out.println("Null Test Case");
+        assertTrue(timestamp instanceof NullTestCaseTimeStamp);
+        assertEquals(TestCaseTimestamp.NULL_MESSAGE_NUMBER, timestamp.getMessageNumber());
+        assertEquals(TestCaseTimestamp.NULL_MESSAGE_TYPE, timestamp.getMessageType());
+        assertEquals(TestCaseTimestamp.NULL_TIMESTAMP, timestamp.getTimestamp());
 
     }
 
