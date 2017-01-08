@@ -1,10 +1,10 @@
-package guru.oso.jmeter.mongo;
+package guru.oso.jmeter.util;
 
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
 import guru.oso.jmeter.data.RealTestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestamp;
-import guru.oso.jmeter.data.TestDataStore;
+import guru.oso.jmeter.data.TestCaseTimestampDAO;
 import org.bson.Document;
 
 import java.time.Instant;
@@ -21,10 +21,10 @@ public class MongoUtilities {
     public static TestCaseTimestamp toTestCaseTimestamp(final Document document) {
 
         TestCaseTimestamp tct = new RealTestCaseTimestamp();
-        tct.setMessageNumber(document.getString(TestDataStore.MESSAGE_NUMBER));
-        tct.setMessageType(document.getString(TestDataStore.MESSAGE_TYPE));
+        tct.setMessageNumber(document.getString(TestCaseTimestampDAO.MESSAGE_NUMBER));
+        tct.setMessageType(document.getString(TestCaseTimestampDAO.MESSAGE_TYPE));
 
-        String timestampString = document.getString(TestDataStore.MESSAGE_TIMESTAMP);
+        String timestampString = document.getString(TestCaseTimestampDAO.MESSAGE_TIMESTAMP);
         DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
         LocalDateTime localDateTime = LocalDateTime.parse((String) timestampString, formatter);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
@@ -44,17 +44,17 @@ public class MongoUtilities {
         ZonedDateTime zdt = ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault());
         String formattedDateTime = zdt.format(formatter);
 
-        return new Document(TestDataStore.MESSAGE_NUMBER, messageNumber).append(TestDataStore.MESSAGE_TYPE, messageNumber).append(TestDataStore.MESSAGE_TIMESTAMP, formattedDateTime);
+        return new Document(TestCaseTimestampDAO.MESSAGE_NUMBER, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TYPE, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TIMESTAMP, formattedDateTime);
 
     }
 
     public static TestCaseTimestamp toTestCaseTimestamp(final DBObject dbObj) {
 
         TestCaseTimestamp tct = new RealTestCaseTimestamp();
-        tct.setMessageNumber((String) dbObj.get(TestDataStore.MESSAGE_NUMBER));
-        tct.setMessageType((String) dbObj.get(TestDataStore.MESSAGE_TYPE));
+        tct.setMessageNumber((String) dbObj.get(TestCaseTimestampDAO.MESSAGE_NUMBER));
+        tct.setMessageType((String) dbObj.get(TestCaseTimestampDAO.MESSAGE_TYPE));
 
-        String timestampString = (String) dbObj.get(TestDataStore.MESSAGE_TIMESTAMP);
+        String timestampString = (String) dbObj.get(TestCaseTimestampDAO.MESSAGE_TIMESTAMP);
         DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
         LocalDateTime localDateTime = LocalDateTime.parse((String) timestampString, formatter);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
@@ -74,7 +74,7 @@ public class MongoUtilities {
         ZonedDateTime zdt = ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault());
         String formattedDateTime = zdt.format(formatter);
 
-        return new BasicDBObjectBuilder().append(TestDataStore.MESSAGE_NUMBER, messageNumber).append(TestDataStore.MESSAGE_TYPE, messageNumber).append(TestDataStore.MESSAGE_TIMESTAMP, formattedDateTime).get();
+        return new BasicDBObjectBuilder().append(TestCaseTimestampDAO.MESSAGE_NUMBER, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TYPE, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TIMESTAMP, formattedDateTime).get();
 
     }
 

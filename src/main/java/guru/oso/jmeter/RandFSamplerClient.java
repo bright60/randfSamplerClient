@@ -80,8 +80,9 @@ public class RandFSamplerClient extends AbstractJavaSamplerClient {
         params.addArgument("HOST", "http://localhost:8081/idoc");
         params.addArgument("DELAY", "5");
         params.addArgument("IDOC", "../idoc/BOMMAT04_IDoc.xml");
-        params.addArgument("ACCESS_KEY", "");
-        params.addArgument("SECRET_KEY", "");
+        params.addArgument("MYSQL_HOST", "104.154.236.96");
+//        params.addArgument("ACCESS_KEY", "");
+//        params.addArgument("SECRET_KEY", "");
 
         return params;
     }

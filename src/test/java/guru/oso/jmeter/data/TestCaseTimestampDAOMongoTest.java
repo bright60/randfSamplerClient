@@ -1,10 +1,13 @@
-package guru.oso.jmeter.mongo;
+package guru.oso.jmeter.data;
 
 import com.mongodb.BasicDBObjectBuilder;
 import guru.oso.jmeter.data.RealTestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestamp;
 
-import guru.oso.jmeter.data.TestDataStore;
+import guru.oso.jmeter.data.TestCaseTimestampDAO;
+import guru.oso.jmeter.data.TestCaseTimestampDAOMongo;
+import guru.oso.jmeter.util.MongoUtilities;
+import guru.oso.jmeter.utils.TestUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,16 +20,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by BC on 12/25/16.
  */
-public class TestCaseDataStoreTest {
+public class TestCaseTimestampDAOMongoTest {
 
-    public static final long DEFAULT_TIME = 1483115162199L;
-
-    private TestDataStore store;
+    private TestCaseTimestampDAO store;
 
     @Before
     public void setUp() throws Exception {
 
-        this.store = new TestCaseDataStore("mule_user", "mule_user", "localhost", "mule_perf_test");
+        this.store = new TestCaseTimestampDAOMongo("mule_user", "mule_user", "localhost", "mule_perf_test");
 
     }
 
@@ -42,8 +43,8 @@ public class TestCaseDataStoreTest {
     @Test
     public void getAllTestCases() throws Exception {
 
-        TestCaseTimestamp testCaseOne = this.createTimestamp("0000000000000001",DEFAULT_TIME);
-        TestCaseTimestamp testCaseTwo = this.createTimestamp("0000000000000002",DEFAULT_TIME);
+        TestCaseTimestamp testCaseOne = TestUtils.createTimestamp("0000000000000001");
+        TestCaseTimestamp testCaseTwo = TestUtils.createTimestamp("0000000000000002");
 
         this.store.insertTestCase(testCaseOne);
         this.store.insertTestCase(testCaseTwo);
@@ -61,7 +62,7 @@ public class TestCaseDataStoreTest {
     @Test
     public void insertTestCase() throws Exception {
 
-        TestCaseTimestamp testCaseOne = this.createTimestamp("0000000000000001",DEFAULT_TIME);
+        TestCaseTimestamp testCaseOne = TestUtils.createTimestamp("0000000000000001");
 
         this.store.insertTestCase(testCaseOne);
 
@@ -74,8 +75,8 @@ public class TestCaseDataStoreTest {
     @Test
     public void dropAllTestCases() throws Exception {
 
-        TestCaseTimestamp testCaseOne = this.createTimestamp("0000000000000001",DEFAULT_TIME);
-        TestCaseTimestamp testCaseTwo = this.createTimestamp("0000000000000002",DEFAULT_TIME);
+        TestCaseTimestamp testCaseOne = TestUtils.createTimestamp("0000000000000001");
+        TestCaseTimestamp testCaseTwo = TestUtils.createTimestamp("0000000000000002");
 
         this.store.insertTestCase(testCaseOne);
         this.store.insertTestCase(testCaseTwo);
@@ -90,8 +91,8 @@ public class TestCaseDataStoreTest {
     @Test
     public void findTestCase() throws Exception {
 
-        TestCaseTimestamp testCaseOne = this.createTimestamp("0000000000000001",DEFAULT_TIME);
-        TestCaseTimestamp testCaseTwo = this.createTimestamp("0000000000000002",DEFAULT_TIME);
+        TestCaseTimestamp testCaseOne = TestUtils.createTimestamp("0000000000000001");
+        TestCaseTimestamp testCaseTwo = TestUtils.createTimestamp("0000000000000002");
 
         this.store.insertTestCase(testCaseOne);
         this.store.insertTestCase(testCaseTwo);
@@ -114,9 +115,9 @@ public class TestCaseDataStoreTest {
         String timestamp = "2016-12-30T08:33:33.873-07:00";
 
         BasicDBObjectBuilder builder = new BasicDBObjectBuilder();
-        builder.append(TestDataStore.MESSAGE_NUMBER, messageNumber);
-        builder.append(TestDataStore.MESSAGE_TYPE, messageType);
-        builder.append(TestDataStore.MESSAGE_TIMESTAMP, timestamp);
+        builder.append(TestCaseTimestampDAO.MESSAGE_NUMBER, messageNumber);
+        builder.append(TestCaseTimestampDAO.MESSAGE_TYPE, messageType);
+        builder.append(TestCaseTimestampDAO.MESSAGE_TIMESTAMP, timestamp);
 
         TestCaseTimestamp tct = MongoUtilities.toTestCaseTimestamp(builder.get());
 
@@ -124,16 +125,6 @@ public class TestCaseDataStoreTest {
         assertEquals(messageType, tct.getMessageType());
 //        assertEquals(new Long(1483112013873L), tct.getTimestamp());
         System.out.println(tct.getTimestamp());
-
-    }
-
-    private TestCaseTimestamp createTimestamp(final String mNumber, final Long timestamp) {
-
-        TestCaseTimestamp tct = new RealTestCaseTimestamp();
-        tct.setMessageNumber(mNumber);
-        tct.setTimestamp(timestamp);
-
-        return tct;
 
     }
 

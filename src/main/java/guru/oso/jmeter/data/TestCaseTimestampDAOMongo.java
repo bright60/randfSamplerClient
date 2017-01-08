@@ -1,11 +1,8 @@
-package guru.oso.jmeter.mongo;
+package guru.oso.jmeter.data;
 
 import com.mongodb.*;
 
-import guru.oso.jmeter.data.NullTestCaseTimeStamp;
-import guru.oso.jmeter.data.TestCaseTimestamp;
-import guru.oso.jmeter.data.TestDataStore;
-
+import guru.oso.jmeter.util.MongoUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +13,9 @@ import java.util.List;
 /**
  * Created by BC on 12/25/16.
  */
-public class TestCaseDataStore implements TestDataStore {
+public class TestCaseTimestampDAOMongo implements TestCaseTimestampDAO {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestCaseDataStore.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestCaseTimestampDAOMongo.class);
 
     private final MongoClientURI mongoClientURI;
     private MongoClient dbClient;
@@ -26,7 +23,7 @@ public class TestCaseDataStore implements TestDataStore {
     private static final String DATABASE_NAME = "mule_perf_test";
     private static final String COLLECTION_NAME = "Threads";
 
-    public TestCaseDataStore(final String user, final String pwd, final String host, final String authDB) {
+    public TestCaseTimestampDAOMongo(final String user, final String pwd, final String host, final String authDB) {
 
 //        MongoClientURI mongoURI = new MongoClientURI("mongodb://mule_user:mule_user@localhost/?authSource=mule_perf_test&authMechanism=MONGODB-CR");
 

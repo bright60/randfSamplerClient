@@ -1,14 +1,14 @@
 package guru.oso.jmeter.file;
 
 import guru.oso.jmeter.data.TestCaseTimestamp;
-import guru.oso.jmeter.data.TestDataStore;
+import guru.oso.jmeter.data.TestCaseTimestampDAO;
 
 import java.util.List;
 
 /**
  * Created by BC on 1/4/17.
  */
-public class TestCaseDataFile implements TestDataStore {
+public class TestCaseDataFile implements TestCaseTimestampDAO {
 
 
 

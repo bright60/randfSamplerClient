@@ -1,10 +1,10 @@
 package guru.oso.jmeter;
 
 import guru.oso.jmeter.data.TestCaseTimestamp;
-import guru.oso.jmeter.data.TestDataStore;
+import guru.oso.jmeter.data.TestCaseTimestampDAO;
 import guru.oso.jmeter.dom.IDocDOM;
-import guru.oso.jmeter.dynamo.TestCaseDynamo;
 import guru.oso.jmeter.http.IDocHTTPClient;
+import guru.oso.jmeter.data.TestCaseTimestampDAOMySQL;
 import guru.oso.jmeter.poller.TestCaseScheduledExecutor;
 
 import org.apache.http.Header;
@@ -44,9 +44,8 @@ public class RequestSubmitter {
         long currentTime = System.currentTimeMillis();
         String response = submitRequest(idocXML, params);
 
-        String accessKey = params.get("ACCESS_KEY");
-        String secretKey = params.get("SECRET_KEY");
-        TestDataStore dataStore = new TestCaseDynamo(accessKey, secretKey);
+        String mysql_host = params.get("MYSQL_HOST");
+        TestCaseTimestampDAO dataStore = new TestCaseTimestampDAOMySQL(mysql_host);
 
         TestCaseScheduledExecutor executor = new TestCaseScheduledExecutor(messageNumber, dataStore);
 

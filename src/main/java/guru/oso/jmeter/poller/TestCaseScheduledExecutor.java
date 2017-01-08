@@ -1,8 +1,7 @@
 package guru.oso.jmeter.poller;
 
 import guru.oso.jmeter.data.TestCaseTimestamp;
-import guru.oso.jmeter.data.TestDataStore;
-import guru.oso.jmeter.mongo.TestCaseDataStore;
+import guru.oso.jmeter.data.TestCaseTimestampDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,10 +17,10 @@ public class TestCaseScheduledExecutor {
     private ScheduledExecutorService scheduledExecutorService;
 
     private String messageNumber;
-    private TestDataStore dataStore;
+    private TestCaseTimestampDAO dataStore;
 
 
-    public TestCaseScheduledExecutor(final String messageNumber, final TestDataStore dataStore) {
+    public TestCaseScheduledExecutor(final String messageNumber, final TestCaseTimestampDAO dataStore) {
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
@@ -54,9 +53,9 @@ public class TestCaseScheduledExecutor {
 
     private class TimestampCallable implements Callable<TestCaseTimestamp> {
 
-        TestDataStore store;
+        TestCaseTimestampDAO store;
 
-        public TimestampCallable(final TestDataStore dataStore) {
+        public TimestampCallable(final TestCaseTimestampDAO dataStore) {
 
             this.store = dataStore;
 

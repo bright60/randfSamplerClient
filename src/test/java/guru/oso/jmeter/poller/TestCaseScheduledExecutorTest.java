@@ -3,8 +3,8 @@ package guru.oso.jmeter.poller;
 import guru.oso.jmeter.data.NullTestCaseTimeStamp;
 import guru.oso.jmeter.data.RealTestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestamp;
-import guru.oso.jmeter.data.TestDataStore;
-import guru.oso.jmeter.dynamo.TestCaseDynamo;
+import guru.oso.jmeter.data.TestCaseTimestampDAO;
+import guru.oso.jmeter.data.TestCaseTimestampDAOMySQL;
 import guru.oso.jmeter.props.PropertiesResolver;
 
 import org.junit.After;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 public class TestCaseScheduledExecutorTest {
 
     private TestCaseScheduledExecutor executor;
-    private TestDataStore store;
+    private TestCaseTimestampDAO store;
     private TestCaseTimestamp timestamp;
 
     @Before
@@ -33,8 +33,8 @@ public class TestCaseScheduledExecutorTest {
         String accessKey = props.getProperty(PropertiesResolver.ACCESS_KEY);
         String secretKey = props.getProperty(PropertiesResolver.SECRET_KEY);
 
-        this.store = new TestCaseDynamo(accessKey, secretKey);
-        //        this.store = new TestCaseDataStore("mule_user", "mule_user", "localhost", "mule_perf_test");
+        this.store = new TestCaseTimestampDAOMySQL("104.154.236.96");
+        //        this.store = new TestCaseTimestampDAOMongo("mule_user", "mule_user", "localhost", "mule_perf_test");
 
         timestamp = this.createTimestamp("0000000000000001",1482533994L);
         this.executor = new TestCaseScheduledExecutor("0000000000000001", this.store);
@@ -74,7 +74,7 @@ public class TestCaseScheduledExecutorTest {
 
         TestCaseTimestamp tct = new RealTestCaseTimestamp();
         tct.setMessageNumber(mNumber);
-        tct.setMessageType(TestDataStore.MESSAGE_TYPE);
+        tct.setMessageType(TestCaseTimestampDAO.MESSAGE_TYPE);
         tct.setTimestamp(timestamp);
 
         return tct;
