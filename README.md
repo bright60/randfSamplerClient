@@ -14,6 +14,9 @@ TBA
 `org.jdom:jdom2:2.0.6`  
 This jar also needs to be included in the `%JMETER_HOME%/lib/ext` directory.
 
+`mysql:mysql-connector-java:6.0.5`
+If you plan on using a MySQL instance instead of MongoDB (recommended due to conflicts with JMeter's older MongoDB driver), the above jar will also need to included in the `%JMETER_HOME%/lib/ext` directory.
+
 `org.apache.jmeter:ApacheJMeter_core`  
 `org.apache.jmeter:ApacheJMeter_java`  
 `org.apache.jmeter:ApacheJMeter_slf4j_logkit`  
