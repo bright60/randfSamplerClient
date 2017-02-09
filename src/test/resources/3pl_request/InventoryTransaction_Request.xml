@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<InventoryTransaction
+        xmlns="http://rodanandfields.com/schemas/integration-gateway/inventorytransaction/v/0/0/1">
+    <FromPartner>1750</FromPartner>
+    <Transactions>
+        <FileId></FileId>
+        <Transaction>
+            <TransactionId>4278</TransactionId>
+            <PlantId>1750</PlantId>
+            <PostingDateTime>2017-02-02T00:00:00</PostingDateTime>
+            <DocumentDateTime>2017-02-02T10:52:10</DocumentDateTime>
+            <PONumber></PONumber>
+            <Product>
+                <ProductId>8500-05-0014</ProductId>
+                <Quantity>00000000010</Quantity>
+                <UOM>EA</UOM>
+                <LotDetails>
+                    <LotId></LotId>
+                </LotDetails>
+                <MovementType>AV</MovementType>
+                <ReasonCode></ReasonCode>
+                <FromLockCode>QC</FromLockCode>
+            </Product>
+            <Filler></Filler>
+        </Transaction>
+    </Transactions>
+</InventoryTransaction>

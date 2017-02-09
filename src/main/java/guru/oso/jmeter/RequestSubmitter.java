@@ -32,24 +32,31 @@ import java.util.Map;
  */
 public class RequestSubmitter {
 
+    public static final String FILE = "FILE";
+    public static final String HOST = "HOST";
+    public static final String MYSQL_HOST = "MYSQL_HOST";
+    public static final String POLLER_DELAY = "POLLER_DELAY";
+
+    public static final String CORRELATION_ID = "CORRELATION_ID";
+
     private static final Logger logger = LoggerFactory.getLogger(RequestSubmitter.class);
 
 //    public static final String PROPERTIES_FILE = "test.properties";
 
-    public static Long timeRequest(final String idocPath, final String messageNumber, final Map<String,String> params) {
+    public static Long timeRequest(final String messageNumber, final Map<String,String> params) {
 
-        IDocDOM idocDOM = new IDocDOM(idocPath);
-        idocDOM.setDOCNUM(messageNumber);
-        String idocXML = idocDOM.toXML();
         long currentTime = System.currentTimeMillis();
-        String response = submitRequest(idocXML, params);
 
-        String mysql_host = params.get("MYSQL_HOST");
+        String payloadPath = params.get(FILE);
+        String bodyXML = new IDocDOM(payloadPath).toXML();
+        String response = submitRequest(bodyXML, messageNumber, params);
+
+        String mysql_host = params.get(MYSQL_HOST);
         TestCaseTimestampDAO dataStore = new TestCaseTimestampDAOMySQL(mysql_host);
 
         TestCaseScheduledExecutor executor = new TestCaseScheduledExecutor(messageNumber, dataStore);
 
-        String delay = params.get("DELAY");
+        String delay = params.get(POLLER_DELAY);
         TestCaseTimestamp timestamp = executor.pollForTestCase(Integer.parseInt(delay));
 
         logger.info("MessageNumber: " + timestamp.getMessageNumber());
@@ -61,7 +68,7 @@ public class RequestSubmitter {
         Instant finishedInstant = Instant.ofEpochMilli(endTime);
         Duration duration = Duration.between(startInstant, finishedInstant);
 
-        logger.info("Current: " + currentTime + " After: " + timestamp.getTimestamp());
+        logger.info("Current: " + currentTime + " After: " + endTime);
         logger.info("Duration: " + duration.toMillis() + "ms");
 
         logger.info("Response: " + response);
@@ -70,15 +77,17 @@ public class RequestSubmitter {
 
     }
 
-    private static String submitRequest(final String idocXML, final Map<String,String> params) {
+    private static String submitRequest(final String idocXML, final String messageNumber, final Map<String,String> params) {
 
-        Header header = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/xml");
+        Header contentHeader = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/xml");
+        Header corrlationHeader = new BasicHeader(CORRELATION_ID, messageNumber);
         List<Header> headers = new ArrayList<>();
-        headers.add(header);
+        headers.add(contentHeader);
+        headers.add(corrlationHeader);
 
         HttpClient client = HttpClients.custom().setDefaultHeaders(headers).build();
 
-        String host = params.get("HOST");
+        String host = params.get(HOST);
         HttpUriRequest request = IDocHTTPClient.generatePostRequest(idocXML, host);
 
         String result = "";

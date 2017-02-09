@@ -48,14 +48,17 @@ public class RandFSamplerClient extends AbstractJavaSamplerClient {
             JMeterVariables vars = JMeterContextService.getContext().getVariables();
 //            vars.put("demo", "demoVariableContent");
 
-            String idocPath = mapParams.get("IDOC");
             UUID uuid = UUID.randomUUID();
-
             result.sampleStart();
-            Long endTime = RequestSubmitter.timeRequest(idocPath, uuid.toString(), mapParams);
+            Long endTime = RequestSubmitter.timeRequest(uuid.toString(), mapParams);
 
-            result.setEndTime(endTime);
             result.sampleEnd();
+            result.setEndTime(endTime);
+
+            if (endTime < 0) {
+                result.setSuccessful(false);
+                result.setSampleLabel("FAILURE");
+            }
 
             result.setSuccessful(true);
             result.setSampleLabel("SUCCESS");
@@ -77,14 +80,13 @@ public class RandFSamplerClient extends AbstractJavaSamplerClient {
 
         Arguments params = new Arguments();
 
-        params.addArgument("HOST", "http://localhost:8081/idoc");
-        params.addArgument("DELAY", "5");
-        params.addArgument("IDOC", "../idoc/BOMMAT04_IDoc.xml");
+        params.addArgument("HOST", "https://test-3pl-logistics-api-20170201.cloudhub.io/rest/api/v/0/1/delivery/confirmation");
+        params.addArgument("POLLER_DELAY", "5");
+        params.addArgument("FILE", "../file/DeliveryConfirmation_Request.xml");
         params.addArgument("MYSQL_HOST", "104.154.236.96");
-//        params.addArgument("ACCESS_KEY", "");
-//        params.addArgument("SECRET_KEY", "");
 
         return params;
+
     }
 
 }

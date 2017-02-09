@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -34,6 +36,18 @@ public class PropertiesResolver {
 
     public Properties getProperties() {
         return properties;
+    }
+
+    public Map<String,String> getPropertiesAsMap() {
+
+        Map<String,String> map = new HashMap<>();
+
+        for (final String name: properties.stringPropertyNames()) {
+            map.put(name, properties.getProperty(name));
+        }
+
+        return map;
+
     }
 
     private Properties resolveProperties(final String propertiesPath) {

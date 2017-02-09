@@ -32,7 +32,10 @@ public class TestCaseTimestampDAOMySQL implements TestCaseTimestampDAO {
 
             StringBuilder dbBuilder = new StringBuilder("jdbc:mysql://");
             dbBuilder.append(host + "/" + DATABASE_NAME);
-            dbBuilder.append("?user=root&password=");
+            dbBuilder.append("?user=root");
+//            dbBuilder.append("&password=");
+            dbBuilder.append("&autoReconnect=true");
+            dbBuilder.append("&useSSL=false");
 
             this.connectionURI = dbBuilder.toString();
 
@@ -40,6 +43,8 @@ public class TestCaseTimestampDAOMySQL implements TestCaseTimestampDAO {
             logger.error("Big time failure!", e);
         }
 //        conn = DriverManager.getConnection("jdbc:mysql://localhost/test?" + "user=minty&password=greatsqldb");
+
+        //jdbc:mysql://104.154.236.96/performance_test?user=root&useSSL=false&autoReconnect=true
 
 
     }

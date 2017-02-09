@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OrderStatus
+        xmlns="http://rodanandfields.com/schemas/integration-gateway/orderstatus/v/0/0/1">
+    <FromPartner>1750</FromPartner>
+    <StatusCode>10</StatusCode>
+    <DocumentID>3001432002</DocumentID>
+    <AcknowledgementDate>20170126</AcknowledgementDate>
+    <AcknowledgementTime>193110</AcknowledgementTime>
+</OrderStatus>

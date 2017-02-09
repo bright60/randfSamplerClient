@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DeliveryConfirmation xmlns="http://rodanandfields.com/schemas/integration-gateway/DeliveryConfirmation/v/0/0/1">
+    <ShipmentNotifications>
+        <ShipmentNotification>
+            <FromPartner>1750</FromPartner>
+            <DeliveryNumber>3001095005</DeliveryNumber>
+            <Shipments>
+                <Shipment>
+                    <GoodsIssueDate>20161227</GoodsIssueDate>
+                    <GoodsIssueTimeStamp>183005</GoodsIssueTimeStamp>
+                    <TimeZone>EST</TimeZone>
+                    <Carrier>
+                        <Name>carrier</Name>
+                        <TrackingNumber>BOL1234567</TrackingNumber>
+                    </Carrier>
+                    <DeliveryAddress>
+                        <Name>name</Name>
+                        <AddressLine1>200 groveport rd</AddressLine1>
+                        <City>Groveport</City>
+                        <ZipCode>20198</ZipCode>
+                        <State>OH</State>
+                        <Country>US</Country>
+                    </DeliveryAddress>
+                    <Products>
+                        <Product>
+                            <ProductId>6000-02-2137</ProductId>
+                            <LineItemNumber>10</LineItemNumber>
+                            <ShortDiscription>SKU Description</ShortDiscription>
+                            <Quantity>0000000000000</Quantity>
+                            <SalesUnit>EA</SalesUnit>
+                            <MasterLotFlag>N</MasterLotFlag>
+                            <BOMLot>BOMLOT123</BOMLot>
+                            <BOMComponent>Component#</BOMComponent>
+                            <BaseUnitOfMeasure>EA</BaseUnitOfMeasure>
+                            <WareHouse>
+                                <LotNumber>LOT123</LotNumber>
+                                <ExpirationDate>2017-03-24T00:00:00</ExpirationDate>
+                            </WareHouse>
+                        </Product>
+                    </Products>
+                </Shipment>
+            </Shipments>
+        </ShipmentNotification>
+    </ShipmentNotifications>
+</DeliveryConfirmation>
