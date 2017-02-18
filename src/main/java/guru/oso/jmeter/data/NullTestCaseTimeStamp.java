@@ -5,22 +5,41 @@ package guru.oso.jmeter.data;
  */
 public class NullTestCaseTimeStamp extends TestCaseTimestamp {
 
+    @Override
     public String getMessageNumber() {
         return NULL_MESSAGE_NUMBER;
     }
 
-    public void setMessageNumber(String messageNumber) {}
+    @Override
+    public void setMessageNumber(String messageNumber) {
+    }
 
+    @Override
     public String getMessageType() {
         return NULL_MESSAGE_TYPE;
     }
 
-    public void setMessageType(String messageType) {}
+    @Override
+    public void setMessageType(String messageType) {
+    }
 
-    public Long getTimestamp() {
+    @Override
+    public Long getStartTime() {
         return NULL_TIMESTAMP;
     }
 
-    public void setTimestamp(Long timestamp) {}
+    @Override
+    public void setStartTime(Long timestamp) {
+    }
+
+    @Override
+    public Long getEndTime() {
+        return NULL_TIMESTAMP;
+    }
+
+    @Override
+    public void setEndTime(Long timestamp) {
+
+    }
 
 }

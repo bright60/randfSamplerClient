@@ -17,7 +17,8 @@ public class TestCaseTimestampDAOMySQL implements TestCaseTimestampDAO {
 
     private static final String MESSAGE_NUMBER = "message_number";
     private static final String MESSAGE_TYPE = "message_type";
-    private static final String MESSAGE_TIMESTAMP = "message_timestamp";
+    private static final String MESSAGE_START_TIME = "message_start_time";
+    private static final String MESSAGE_END_TIME = "message_end_time";
 
     private static final String DATABASE_NAME = "performance_test";
     private static final String TABLE_NAME = "test_case";
@@ -88,7 +89,8 @@ public class TestCaseTimestampDAOMySQL implements TestCaseTimestampDAO {
                 TestCaseTimestamp timestamp = new RealTestCaseTimestamp();
                 timestamp.setMessageNumber(rs.getString(MESSAGE_NUMBER));
                 timestamp.setMessageType(rs.getString(MESSAGE_TYPE));
-                timestamp.setTimestamp(rs.getLong(MESSAGE_TIMESTAMP));
+                timestamp.setStartTime(rs.getLong(MESSAGE_START_TIME));
+                timestamp.setEndTime(rs.getLong(MESSAGE_END_TIME));
                 timestamps.add(timestamp);
             }
 
@@ -122,8 +124,8 @@ public class TestCaseTimestampDAOMySQL implements TestCaseTimestampDAO {
             stmt = conn.createStatement();
 
             StringBuilder updateBuilder = new StringBuilder("INSERT INTO " + TABLE_NAME);
-            updateBuilder.append(" (" + MESSAGE_NUMBER + "," + MESSAGE_TYPE + "," + MESSAGE_TIMESTAMP + ")");
-            updateBuilder.append(" VALUES ('" + ts.getMessageNumber() + "','" + ts.getMessageType() + "'," + ts.getTimestamp() + ")");
+            updateBuilder.append(" (" + MESSAGE_NUMBER + "," + MESSAGE_TYPE + "," + MESSAGE_START_TIME + "," + MESSAGE_END_TIME + ")");
+            updateBuilder.append(" VALUES ('" + ts.getMessageNumber() + "','" + ts.getMessageType() + "'," + ts.getStartTime() + "'," + ts.getEndTime() + ")");
 
             logger.info("Insert: " + updateBuilder.toString());
 
@@ -198,7 +200,8 @@ public class TestCaseTimestampDAOMySQL implements TestCaseTimestampDAO {
                     timestamp = new RealTestCaseTimestamp();
                     timestamp.setMessageNumber(rs.getString(MESSAGE_NUMBER));
                     timestamp.setMessageType(rs.getString(MESSAGE_TYPE));
-                    timestamp.setTimestamp(rs.getLong(MESSAGE_TIMESTAMP));
+                    timestamp.setStartTime(rs.getLong(MESSAGE_START_TIME));
+                    timestamp.setEndTime(rs.getLong(MESSAGE_END_TIME));
                 }
 
             }

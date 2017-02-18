@@ -1,11 +1,10 @@
 package guru.oso.jmeter.data;
 
 import guru.oso.jmeter.props.PropertiesResolver;
-
 import guru.oso.jmeter.utils.TestUtils;
-
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -18,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by BC on 1/7/17.
  */
+@Ignore("Working with Mongo")
 public class TestCaseTimestampDAOMySQLTest {
 
     private TestCaseTimestampDAOMySQL database;
@@ -73,7 +73,8 @@ public class TestCaseTimestampDAOMySQLTest {
 
         TestCaseTimestamp retrievedTestCase = this.database.findTestCase(testCaseOne.getMessageNumber());
         assertEquals(testCaseOne.getMessageNumber(), retrievedTestCase.getMessageNumber());
-        assertEquals(testCaseOne.getTimestamp(), new Long(retrievedTestCase.getTimestamp()));
+        assertEquals(testCaseOne.getStartTime(), retrievedTestCase.getStartTime());
+        assertEquals(testCaseOne.getEndTime(), retrievedTestCase.getEndTime());
 
     }
 
@@ -110,11 +111,13 @@ public class TestCaseTimestampDAOMySQLTest {
 
         TestCaseTimestamp timestamp = this.database.findTestCase(testCaseOne.getMessageNumber());
         assertEquals(testCaseOne.getMessageNumber(), timestamp.getMessageNumber());
-        assertEquals(testCaseOne.getTimestamp(), new Long(timestamp.getTimestamp()));
+        assertEquals(testCaseOne.getStartTime(), timestamp.getStartTime());
+        assertEquals(testCaseOne.getEndTime(), timestamp.getEndTime());
 
         timestamp = this.database.findTestCase(testCaseTwo.getMessageNumber());
         assertEquals(testCaseTwo.getMessageNumber(), timestamp.getMessageNumber());
-        assertEquals(testCaseTwo.getTimestamp(), new Long(timestamp.getTimestamp()));
+        assertEquals(testCaseTwo.getStartTime(), timestamp.getStartTime());
+        assertEquals(testCaseTwo.getEndTime(), timestamp.getEndTime());
 
     }
 

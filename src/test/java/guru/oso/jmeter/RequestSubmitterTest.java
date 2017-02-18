@@ -1,20 +1,20 @@
 package guru.oso.jmeter;
 
-import static guru.oso.jmeter.RequestSubmitter.*;
-
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static guru.oso.jmeter.RequestSubmitter.*;
 
 /**
  * Created by BC on 2/7/17.
  */
+@Ignore
 public class RequestSubmitterTest {
 
 

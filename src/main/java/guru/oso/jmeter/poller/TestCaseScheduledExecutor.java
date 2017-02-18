@@ -66,6 +66,10 @@ public class TestCaseScheduledExecutor {
             TestCaseTimestamp timestamp = this.store.findTestCase(messageNumber);
 //            System.out.println("Executed!");
 
+            logger.info("MessageNumber: " + timestamp.getMessageNumber());
+            logger.info("MessageType: " + timestamp.getMessageType());
+            logger.info("Start: " + timestamp.getStartTime() + " End: " + timestamp.getEndTime());
+
             return timestamp;
 
         }

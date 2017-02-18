@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by BC on 12/25/16.
  */
-public class IDocDOMTest {
+public class PayloadDOMTest {
 
     final String DEV_PROPS = "src/test/resources/test.properties";
 
@@ -24,10 +24,10 @@ public class IDocDOMTest {
     private Properties properties;
 
 
-    private IDocDOM BOMMAT04_IDoc_DOM;
-    private IDocDOM DELVRY07_IDoc_DOM;
-    private IDocDOM MATMAS05_IDoc_DOM;
-    private IDocDOM ZDELVRY03_IDoc_DOM;
+    private PayloadDOM BOMMAT04_IDoc_DOM;
+    private PayloadDOM DELVRY07_IDoc_DOM;
+    private PayloadDOM MATMAS05_IDoc_DOM;
+    private PayloadDOM ZDELVRY03_IDoc_DOM;
 
     @Before
     public void runBefore() throws Exception {
@@ -35,10 +35,10 @@ public class IDocDOMTest {
         this.properties = new Properties();
         this.properties.load(new FileInputStream(DEV_PROPS));
 
-        this.BOMMAT04_IDoc_DOM = new IDocDOM(properties.getProperty(BOMMAT04_IDoc_File));
-        this.DELVRY07_IDoc_DOM = new IDocDOM(properties.getProperty(DELVRY07_IDoc_File));
-        this.MATMAS05_IDoc_DOM = new IDocDOM(properties.getProperty(MATMAS05_IDoc_File));
-        this.ZDELVRY03_IDoc_DOM = new IDocDOM(properties.getProperty(ZDELVRY03_IDoc_File));
+        this.BOMMAT04_IDoc_DOM = new PayloadDOM(properties.getProperty(BOMMAT04_IDoc_File));
+        this.DELVRY07_IDoc_DOM = new PayloadDOM(properties.getProperty(DELVRY07_IDoc_File));
+        this.MATMAS05_IDoc_DOM = new PayloadDOM(properties.getProperty(MATMAS05_IDoc_File));
+        this.ZDELVRY03_IDoc_DOM = new PayloadDOM(properties.getProperty(ZDELVRY03_IDoc_File));
 
     }
 

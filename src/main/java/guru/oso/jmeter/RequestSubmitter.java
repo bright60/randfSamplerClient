@@ -1,12 +1,12 @@
 package guru.oso.jmeter;
 
+import guru.oso.jmeter.data.RealTestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestampDAO;
-import guru.oso.jmeter.dom.IDocDOM;
+import guru.oso.jmeter.data.TestCaseTimestampDAOMongo;
+import guru.oso.jmeter.dom.PayloadDOM;
 import guru.oso.jmeter.http.IDocHTTPClient;
-import guru.oso.jmeter.data.TestCaseTimestampDAOMySQL;
 import guru.oso.jmeter.poller.TestCaseScheduledExecutor;
-
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -16,7 +16,6 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +33,7 @@ public class RequestSubmitter {
 
     public static final String FILE = "FILE";
     public static final String HOST = "HOST";
+    public static final String MONGO_URI = "MONGO_URI";
     public static final String MYSQL_HOST = "MYSQL_HOST";
     public static final String POLLER_DELAY = "POLLER_DELAY";
 
@@ -43,16 +43,19 @@ public class RequestSubmitter {
 
 //    public static final String PROPERTIES_FILE = "test.properties";
 
-    public static Long timeRequest(final String messageNumber, final Map<String,String> params) {
+    public static TestCaseTimestamp timeRequest(final String messageNumber, final Map<String,String> params) {
 
-        long currentTime = System.currentTimeMillis();
+//        long currentTime = System.currentTimeMillis();
 
         String payloadPath = params.get(FILE);
-        String bodyXML = new IDocDOM(payloadPath).toXML();
+        String bodyXML = new PayloadDOM(payloadPath).toXML();
         String response = submitRequest(bodyXML, messageNumber, params);
 
-        String mysql_host = params.get(MYSQL_HOST);
-        TestCaseTimestampDAO dataStore = new TestCaseTimestampDAOMySQL(mysql_host);
+//        String mysql_host = params.get(MYSQL_HOST);
+//        TestCaseTimestampDAO dataStore = new TestCaseTimestampDAOMySQL(mysql_host);
+
+        String mongoURI = params.get(MONGO_URI);
+        TestCaseTimestampDAO dataStore = new TestCaseTimestampDAOMongo(mongoURI);
 
         TestCaseScheduledExecutor executor = new TestCaseScheduledExecutor(messageNumber, dataStore);
 
@@ -62,18 +65,25 @@ public class RequestSubmitter {
         logger.info("MessageNumber: " + timestamp.getMessageNumber());
         logger.info("MessageType: " + timestamp.getMessageType());
 
-        long endTime = timestamp.getTimestamp();
+        long startTime = timestamp.getStartTime();
+        long endTime = timestamp.getEndTime();
 
-        Instant startInstant = Instant.ofEpochMilli(currentTime);
+        Instant startInstant = Instant.ofEpochMilli(startTime);
         Instant finishedInstant = Instant.ofEpochMilli(endTime);
         Duration duration = Duration.between(startInstant, finishedInstant);
 
-        logger.info("Current: " + currentTime + " After: " + endTime);
+        logger.info("Start: " + startTime + " End: " + endTime);
         logger.info("Duration: " + duration.toMillis() + "ms");
 
         logger.info("Response: " + response);
 
-        return endTime;
+        TestCaseTimestamp tct = new RealTestCaseTimestamp();
+        tct.setMessageNumber(timestamp.getMessageNumber());
+        tct.setMessageType(timestamp.getMessageType());
+        tct.setStartTime(startTime);
+        tct.setEndTime(endTime);
+
+        return tct;
 
     }
 

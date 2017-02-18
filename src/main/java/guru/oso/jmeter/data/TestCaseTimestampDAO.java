@@ -7,9 +7,10 @@ import java.util.List;
  */
 public interface TestCaseTimestampDAO {
 
-    static final String MESSAGE_NUMBER = "messageNumber";
-    static final String MESSAGE_TYPE = "messageType";
-    static final String MESSAGE_TIMESTAMP = "timestamp";
+    String MESSAGE_NUMBER = "messageNumber";
+    String MESSAGE_TYPE = "messageType";
+    String MESSAGE_END_TIME = "messageEndTime";
+    String MESSAGE_START_TIME = "messageStartTime";
 
     List<TestCaseTimestamp> getAllTestCases();
 

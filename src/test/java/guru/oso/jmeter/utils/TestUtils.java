@@ -2,7 +2,6 @@ package guru.oso.jmeter.utils;
 
 import guru.oso.jmeter.data.RealTestCaseTimestamp;
 import guru.oso.jmeter.data.TestCaseTimestamp;
-import guru.oso.jmeter.data.TestCaseTimestampDAO;
 
 /**
  * Created by BC on 1/8/17.
@@ -10,16 +9,17 @@ import guru.oso.jmeter.data.TestCaseTimestampDAO;
 public class TestUtils {
 
     public static final long DEFAULT_TIME = 1483115162199L;
-    public static final String DEFAULT_TYPE = "IDOC";
+    public static final String DEFAULT_TYPE = "DEFAULT_TYPE";
 
     public static TestCaseTimestamp createTimestamp(final String mNumber) {
 
         TestCaseTimestamp tct = new RealTestCaseTimestamp();
         tct.setMessageNumber(mNumber);
         tct.setMessageType(DEFAULT_TYPE);
-        tct.setTimestamp(DEFAULT_TIME);
+        tct.setStartTime(DEFAULT_TIME);
+        tct.setEndTime(DEFAULT_TIME);
 
-        return tct;
+        return createTimestamp(mNumber, DEFAULT_TYPE, DEFAULT_TIME);
 
     }
 
@@ -28,7 +28,8 @@ public class TestUtils {
         TestCaseTimestamp tct = new RealTestCaseTimestamp();
         tct.setMessageNumber(mNumber);
         tct.setMessageType(mType);
-        tct.setTimestamp(mTimestamp);
+        tct.setStartTime(mTimestamp);
+        tct.setEndTime(mTimestamp);
 
         return tct;
 

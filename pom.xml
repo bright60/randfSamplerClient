@@ -15,8 +15,8 @@
         <jmeter.version>3.1</jmeter.version>
         <httpclient.version>4.5.2</httpclient.version>
         <slf4j-api.version>1.7.21</slf4j-api.version>
-        <!--<mongo.version>3.4.1</mongo.version>-->
-        <mysql.version>6.0.5</mysql.version>
+        <mongo.version>3.4.2</mongo.version>
+        <!--<mysql.version>6.0.5</mysql.version>-->
     </properties>
 
     <build>
@@ -38,11 +38,23 @@
             <groupId>org.apache.jmeter</groupId>
             <artifactId>ApacheJMeter_core</artifactId>
             <version>${jmeter.version}</version>
+            <exclusions>
+                <exclusion>  <!-- declare the exclusion here -->
+                    <groupId>org.mongodb</groupId>
+                    <artifactId>mongo-java-driver</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.jmeter</groupId>
             <artifactId>ApacheJMeter_java</artifactId>
             <version>${jmeter.version}</version>
+            <exclusions>
+                <exclusion>  <!-- declare the exclusion here -->
+                    <groupId>org.mongodb</groupId>
+                    <artifactId>mongo-java-driver</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -68,28 +80,33 @@
             <version>2.0</version>
             <!--<scope>provided</scope>-->
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.mongodb</groupId>-->
-            <!--<artifactId>mongodb-driver</artifactId>-->
-            <!--<version>${mongo.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>${mongo.version}</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.jdom</groupId>-->
             <!--<artifactId>jdom2</artifactId>-->
             <!--<version>2.0.6</version>-->
             <!--<scope>compile</scope>-->
         <!--</dependency>-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-            <scope>compile</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<version>${mysql.version}</version>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
         </dependency>
     </dependencies>
 </project>

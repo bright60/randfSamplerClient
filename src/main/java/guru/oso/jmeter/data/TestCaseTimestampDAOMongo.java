@@ -1,7 +1,6 @@
 package guru.oso.jmeter.data;
 
 import com.mongodb.*;
-
 import guru.oso.jmeter.util.MongoUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,16 +19,28 @@ public class TestCaseTimestampDAOMongo implements TestCaseTimestampDAO {
     private final MongoClientURI mongoClientURI;
     private MongoClient dbClient;
 
-    private static final String DATABASE_NAME = "mule_perf_test";
-    private static final String COLLECTION_NAME = "Threads";
+    private static final String DATABASE_NAME = "remote-test-jmeter";
+    private static final String COLLECTION_NAME = "randf_txn";
+
+    public TestCaseTimestampDAOMongo(final String mongoURI) {
+
+//        mongodb://<dbuser>:<dbpassword>@ds155028.mlab.com:55028/remote-test-jmeter
+
+        logger.info("MongoURI: " + mongoURI);
+
+        mongoClientURI = new MongoClientURI(mongoURI);
+
+    }
 
     public TestCaseTimestampDAOMongo(final String user, final String pwd, final String host, final String authDB) {
+
+//        mongodb://<dbuser>:<dbpassword>@ds155028.mlab.com:55028/remote-test-jmeter
 
 //        MongoClientURI mongoURI = new MongoClientURI("mongodb://mule_user:mule_user@localhost/?authSource=mule_perf_test&authMechanism=MONGODB-CR");
 
         StringBuilder dbBuilder = new StringBuilder("mongodb://");
         dbBuilder.append(user + ":" + pwd + "@" + host +"/");
-        dbBuilder.append("?authSource=" + authDB + "&authMechanism=MONGODB-CR");
+//        dbBuilder.append("?authSource=" + authDB + "&authMechanism=MONGODB-CR");
         String mongoURI = dbBuilder.toString();
 
         logger.info("MongoURI: " + mongoURI);
@@ -120,6 +131,8 @@ public class TestCaseTimestampDAOMongo implements TestCaseTimestampDAO {
             if (dbObj != null) {
                 tct = MongoUtilities.toTestCaseTimestamp(dbObj);
             }
+
+            logger.info("DAO:Start:" + tct.getStartTime(), tct.getEndTime());
 
             return tct;
 

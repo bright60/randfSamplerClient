@@ -55,11 +55,11 @@ public class MongoUtilities {
         tct.setMessageNumber((String) dbObj.get(TestCaseTimestampDAO.MESSAGE_NUMBER));
         tct.setMessageType((String) dbObj.get(TestCaseTimestampDAO.MESSAGE_TYPE));
 
-        String timestampString = (String) dbObj.get(TestCaseTimestampDAO.MESSAGE_TIMESTAMP);
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-        LocalDateTime localDateTime = LocalDateTime.parse((String) timestampString, formatter);
-        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
-        tct.setTimestamp(zonedDateTime.toInstant().toEpochMilli());
+        Long startTime = (Long) dbObj.get(TestCaseTimestampDAO.MESSAGE_START_TIME);
+        tct.setStartTime(startTime);
+
+        Long endTime = (Long) dbObj.get(TestCaseTimestampDAO.MESSAGE_END_TIME);
+        tct.setEndTime(endTime);
 
         return tct;
 
@@ -69,13 +69,30 @@ public class MongoUtilities {
 
         String messageNumber = tct.getMessageNumber();
         String messageType = tct.getMessageType();
-        long timestamp = tct.getTimestamp();
+        long startTime = tct.getStartTime();
+        long endTime = tct.getEndTime();
+
+//        String startTimeString = toString(startTime);
+//        String endTimeString = toString(endTime);
+
+        return new BasicDBObjectBuilder().append(TestCaseTimestampDAO.MESSAGE_NUMBER, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TYPE, messageType).append(TestCaseTimestampDAO.MESSAGE_START_TIME, startTime).append(TestCaseTimestampDAO.MESSAGE_END_TIME, endTime).get();
+
+    }
+
+    private static String toString(final long timestamp) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
         ZonedDateTime zdt = ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault());
-        String formattedDateTime = zdt.format(formatter);
+        return zdt.format(formatter);
 
-        return new BasicDBObjectBuilder().append(TestCaseTimestampDAO.MESSAGE_NUMBER, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TYPE, messageNumber).append(TestCaseTimestampDAO.MESSAGE_TIMESTAMP, formattedDateTime).get();
+    }
+
+    private static long toEpochMill(final String timestampString) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+        LocalDateTime localDateTime = LocalDateTime.parse(timestampString, formatter);
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
+        return zonedDateTime.toInstant().toEpochMilli();
 
     }
 

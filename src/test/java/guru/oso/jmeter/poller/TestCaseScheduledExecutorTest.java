@@ -1,12 +1,7 @@
 package guru.oso.jmeter.poller;
 
-import guru.oso.jmeter.data.NullTestCaseTimeStamp;
-import guru.oso.jmeter.data.RealTestCaseTimestamp;
-import guru.oso.jmeter.data.TestCaseTimestamp;
-import guru.oso.jmeter.data.TestCaseTimestampDAO;
-import guru.oso.jmeter.data.TestCaseTimestampDAOMySQL;
+import guru.oso.jmeter.data.*;
 import guru.oso.jmeter.props.PropertiesResolver;
-
 import guru.oso.jmeter.utils.TestUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -31,13 +26,15 @@ public class TestCaseScheduledExecutorTest {
     @Before
     public void setUp() throws Exception {
 
-        PropertiesResolver resolver = new PropertiesResolver("src/main/resources/test.properties");
+        PropertiesResolver resolver = new PropertiesResolver("src/test/resources/test.properties");
         Properties props = resolver.getProperties();
 
-        String mysql_host = props.getProperty("MYSQL_HOST");
+//        String mysql_host = props.getProperty("MYSQL_HOST");
+//        this.dao = new TestCaseTimestampDAOMySQL(mysql_host);
 
-        this.dao = new TestCaseTimestampDAOMySQL(mysql_host);
         //        this.dao = new TestCaseTimestampDAOMongo("mule_user", "mule_user", "localhost", "mule_perf_test");
+        String mongo_uri = props.getProperty("MONGO_URI");
+        this.dao = new TestCaseTimestampDAOMongo(mongo_uri);
 
         String uuid = UUID.randomUUID().toString();
 
@@ -66,8 +63,8 @@ public class TestCaseScheduledExecutorTest {
         assertTrue(timestamp instanceof RealTestCaseTimestamp);
         assertEquals(this.expectedTimestamp.getMessageNumber(), timestamp.getMessageNumber());
         assertEquals(this.expectedTimestamp.getMessageType(), timestamp.getMessageType());
-        assertEquals(this.expectedTimestamp.getTimestamp(), timestamp.getTimestamp());
-
+        assertEquals(this.expectedTimestamp.getStartTime(), timestamp.getStartTime());
+        assertEquals(this.expectedTimestamp.getEndTime(), timestamp.getEndTime());
 
     }
 
@@ -83,7 +80,8 @@ public class TestCaseScheduledExecutorTest {
         assertTrue(timestamp instanceof NullTestCaseTimeStamp);
         assertEquals(TestCaseTimestamp.NULL_MESSAGE_NUMBER, timestamp.getMessageNumber());
         assertEquals(TestCaseTimestamp.NULL_MESSAGE_TYPE, timestamp.getMessageType());
-        assertEquals(TestCaseTimestamp.NULL_TIMESTAMP, timestamp.getTimestamp());
+        assertEquals(TestCaseTimestamp.NULL_TIMESTAMP, timestamp.getStartTime());
+        assertEquals(TestCaseTimestamp.NULL_TIMESTAMP, timestamp.getEndTime());
 
     }
 

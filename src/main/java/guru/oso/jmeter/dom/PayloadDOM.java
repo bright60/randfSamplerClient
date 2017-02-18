@@ -16,21 +16,21 @@ import java.io.IOException;
 /**
  * Created by BC on 12/25/16.
  */
-public class IDocDOM {
+public class PayloadDOM {
 
-    private static final Logger logger = LoggerFactory.getLogger(IDocDOM.class);
+    private static final Logger logger = LoggerFactory.getLogger(PayloadDOM.class);
 
-    private org.jdom2.Document idocDOM;
+    private org.jdom2.Document payloadDOM;
 
-    public IDocDOM(final String idocPath) {
+    public PayloadDOM(final String idocPath) {
 
-        this.idocDOM = this.readIDocIntoJDOM(idocPath);
+        this.payloadDOM = this.readIDocIntoJDOM(idocPath);
 
     }
 
     private org.jdom2.Document readIDocIntoJDOM(final String idocPath) {
 
-        org.jdom2.Document idocDoc;
+        org.jdom2.Document payloadDoc;
 
         DocumentBuilder dBuilder = this.generateDocumentBuilder();
 
@@ -44,12 +44,12 @@ public class IDocDOM {
 
         if (doc != null) {
             DOMBuilder domBuilder = new DOMBuilder();
-            idocDoc = domBuilder.build(doc);
+            payloadDoc = domBuilder.build(doc);
         } else {
-            idocDoc = null;
+            payloadDoc = null;
         }
 
-        return idocDoc;
+        return payloadDoc;
 
     }
 
@@ -90,12 +90,12 @@ public class IDocDOM {
     }
 
     public String toXML() {
-        return new XMLOutputter().outputString(idocDOM);
+        return new XMLOutputter().outputString(payloadDOM);
     }
 
     public String getDOCNUM() {
 
-        Element docNum = idocDOM.getRootElement().getChild("IDOC").getChild("EDI_DC40").getChild("DOCNUM");
+        Element docNum = payloadDOM.getRootElement().getChild("IDOC").getChild("EDI_DC40").getChild("DOCNUM");
 
         return docNum.getText();
 
@@ -105,7 +105,7 @@ public class IDocDOM {
 
         logger.info("Document Number: " + docNum);
 
-        Element rootElement = idocDOM.getRootElement();
+        Element rootElement = payloadDOM.getRootElement();
         Element idocElement = rootElement.getChild("IDOC");
         Element ediElement = idocElement.getChild("EDI_DC40");
         Element docNumElement = ediElement.getChild("DOCNUM");
