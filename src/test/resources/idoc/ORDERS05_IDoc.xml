@@ -1,0 +1,422 @@
+<ORDERS05>
+    <IDOC BEGIN="1">
+        <EDI_DC40 SEGMENT="1">
+            <TABNAM>
+                <![CDATA[EDI_DC40]]>
+            </TABNAM>
+            <MANDT>200</MANDT>
+            <MESCOD>02</MESCOD>
+            <DOCNUM>0000000009290605</DOCNUM>
+            <DOCREL>740</DOCREL>
+            <STATUS>03</STATUS>
+            <DIRECT>1</DIRECT>
+            <OUTMOD>2</OUTMOD>
+            <IDOCTYP>ORDERS05</IDOCTYP>
+            <CIMTYP>ZORDERS05</CIMTYP>
+            <MESTYP>ORDERS</MESTYP>
+            <SNDPOR>SAPED2</SNDPOR>
+            <SNDPRT>LS</SNDPRT>
+            <SNDPRN>ED2CLNT200</SNDPRN>
+            <RCVPOR>
+                <![CDATA[HY_DH_DEV]]>
+            </RCVPOR>
+            <RCVPRT>KU</RCVPRT>
+            <RCVPFC>AG</RCVPFC>
+            <RCVPRN>0219999999</RCVPRN>
+            <CREDAT>20161212</CREDAT>
+            <CRETIM>143023</CRETIM>
+            <SERIAL>20161212143015</SERIAL>
+        </EDI_DC40>
+        <E1EDK01 SEGMENT="1">
+            <ACTION>000</ACTION>
+            <CURCY>USD</CURCY>
+            <WKURS>1.00000</WKURS>
+            <ZTERM>NT00</ZTERM>
+            <BELNR>2000001050</BELNR>
+            <VSART>01</VSART>
+            <VSART_BEZ>Standard</VSART_BEZ>
+            <RECIPNT_NO>0219999999</RECIPNT_NO>
+            <AUGRU>Z29</AUGRU>
+            <AUGRU_BEZ>Consignment</AUGRU_BEZ>
+            <ZE1EDK01 SEGMENT="1">
+                <ZZCOMMDT>00000000</ZZCOMMDT>
+                <ZZSTATUSID>A</ZZSTATUSID>
+                <ZZACCOUNTID>6833266</ZZACCOUNTID>
+                <ZZORDTYPNAME>
+                    <![CDATA[ord_name]]>
+                </ZZORDTYPNAME>
+                <ZZCONSULTID>6810768</ZZCONSULTID>
+                <ZZSITEID>
+                    <![CDATA[s_id]]>
+                </ZZSITEID>
+                <ZZTOTAL_GST>
+                    <![CDATA[t_gst]]>
+                </ZZTOTAL_GST>
+                <ZZTOTAL_HST>
+                    <![CDATA[t_hst]]>
+                </ZZTOTAL_HST>
+                <ZZTOTAL_PST>
+                    <![CDATA[t_pst]]>
+                </ZZTOTAL_PST>
+                <ZZCREAT_ID>SVARANASI</ZZCREAT_ID>
+                <ZZDONOT_SHP>X</ZZDONOT_SHP>
+                <ZZORDER_TYP>TA</ZZORDER_TYP>
+                <ZZORDER_MOD>20161212</ZZORDER_MOD>
+                <ZZORDERTYPEID>Z20</ZZORDERTYPEID>
+                <ZZORD_PROF>
+                    <![CDATA[Order_Profit]]>
+                </ZZORD_PROF>
+            </ZE1EDK01>
+        </E1EDK01>
+        <E1EDK14 SEGMENT="1">
+            <QUALF>006</QUALF>
+            <ORGID>10</ORGID>
+        </E1EDK14>
+        <E1EDK14 SEGMENT="1">
+            <QUALF>007</QUALF>
+            <ORGID>10</ORGID>
+        </E1EDK14>
+        <E1EDK14 SEGMENT="1">
+            <QUALF>008</QUALF>
+            <ORGID>1710</ORGID>
+        </E1EDK14>
+        <E1EDK14 SEGMENT="1">
+            <QUALF>012</QUALF>
+            <ORGID>TA</ORGID>
+        </E1EDK14>
+        <E1EDK03 SEGMENT="1">
+            <IDDAT>002</IDDAT>
+            <DATUM>20161116</DATUM>
+        </E1EDK03>
+        <E1EDK03 SEGMENT="1">
+            <IDDAT>012</IDDAT>
+            <DATUM>20161116</DATUM>
+        </E1EDK03>
+        <E1EDK03 SEGMENT="1">
+            <IDDAT>025</IDDAT>
+            <DATUM>20161116</DATUM>
+            <UZEIT>195424</UZEIT>
+        </E1EDK03>
+        <E1EDK03 SEGMENT="1">
+            <IDDAT>023</IDDAT>
+            <DATUM>20161116</DATUM>
+        </E1EDK03>
+        <E1EDKA1 SEGMENT="1">
+            <PARVW>AG</PARVW>
+            <PARTN>0219999999</PARTN>
+            <NAME1>Rajasekar</NAME1>
+            <NAME2>Ganesan</NAME2>
+            <STRAS>APT C 4690 Marblehead CT</STRAS>
+            <ORT01>Columbus</ORT01>
+            <PSTLZ>43220</PSTLZ>
+            <LAND1>US</LAND1>
+            <TELF1>6146487669</TELF1>
+            <SPRAS>E</SPRAS>
+            <HAUSN>000000</HAUSN>
+            <REGIO>OH</REGIO>
+            <SPRAS_ISO>EN</SPRAS_ISO>
+        </E1EDKA1>
+        <E1EDKA1 SEGMENT="1">
+            <PARVW>RE</PARVW>
+            <PARTN>0219999999</PARTN>
+            <NAME1>Rajasekar</NAME1>
+            <NAME2>Ganesan</NAME2>
+            <STRAS>APT C 4690 Marblehead CT</STRAS>
+            <ORT01>Columbus</ORT01>
+            <PSTLZ>43220</PSTLZ>
+            <LAND1>US</LAND1>
+            <TELF1>6146487669</TELF1>
+            <SPRAS>E</SPRAS>
+            <HAUSN>000000</HAUSN>
+            <REGIO>OH</REGIO>
+            <SPRAS_ISO>EN</SPRAS_ISO>
+        </E1EDKA1>
+        <E1EDKA1 SEGMENT="1">
+            <PARVW>RG</PARVW>
+            <PARTN>0219999999</PARTN>
+            <NAME1>Rajasekar</NAME1>
+            <NAME2>Ganesan</NAME2>
+            <STRAS>APT C 4690 Marblehead CT</STRAS>
+            <ORT01>Columbus</ORT01>
+            <PSTLZ>43220</PSTLZ>
+            <LAND1>US</LAND1>
+            <TELF1>6146487669</TELF1>
+            <SPRAS>E</SPRAS>
+            <HAUSN>000000</HAUSN>
+            <REGIO>OH</REGIO>
+            <SPRAS_ISO>EN</SPRAS_ISO>
+        </E1EDKA1>
+        <E1EDKA1 SEGMENT="1">
+            <PARVW>WE</PARVW>
+            <PARTN>0219999999</PARTN>
+            <NAME1>Rajasekar</NAME1>
+            <NAME2>Ganesan</NAME2>
+            <STRAS>APT C 4690 Marblehead CT</STRAS>
+            <ORT01>Columbus</ORT01>
+            <PSTLZ>43220</PSTLZ>
+            <LAND1>US</LAND1>
+            <TELF1>6146487669</TELF1>
+            <SPRAS>E</SPRAS>
+            <HAUSN>000000</HAUSN>
+            <REGIO>OH</REGIO>
+            <SPRAS_ISO>EN</SPRAS_ISO>
+        </E1EDKA1>
+        <E1EDK02 SEGMENT="1">
+            <QUALF>002</QUALF>
+            <BELNR>2000001050</BELNR>
+            <DATUM>20161116</DATUM>
+        </E1EDK02>
+        <E1EDK17 SEGMENT="1">
+            <QUALF>001</QUALF>
+            <LKOND>CIF</LKOND>
+            <LKTEXT>
+                <![CDATA[Costs, insurance & freight]]>
+            </LKTEXT>
+        </E1EDK17>
+        <E1EDK17 SEGMENT="1">
+            <QUALF>002</QUALF>
+            <LKTEXT>CIF</LKTEXT>
+        </E1EDK17>
+        <E1EDK18 SEGMENT="1">
+            <QUALF>001</QUALF>
+            <TAGE>0</TAGE>
+            <PRZNT>0.000</PRZNT>
+            <ZTERM_TXT>Up to 11/16/2016 without deduction</ZTERM_TXT>
+        </E1EDK18>
+        <E1EDP01 SEGMENT="1">
+            <POSEX>000010</POSEX>
+            <ACTION>000</ACTION>
+            <PSTYP>0</PSTYP>
+            <MENGE>10.000</MENGE>
+            <MENEE>EA</MENEE>
+            <PMENE>EA</PMENE>
+            <VPREI>80.00</VPREI>
+            <PEINH>1</PEINH>
+            <NETWR>800.00</NETWR>
+            <NTGEW>10.000</NTGEW>
+            <GEWEI>KGM</GEWEI>
+            <CURCY>USD</CURCY>
+            <MATKL>YBF01</MATKL>
+            <ANTLF>9</ANTLF>
+            <BRGEW>10.000</BRGEW>
+            <PSTYV>TAN</PSTYV>
+            <WERKS>1750</WERKS>
+            <VSTEL>1711</VSTEL>
+            <ZE1EDP01 SEGMENT="1">
+                <ZZTOTAL_GST>000010</ZZTOTAL_GST>
+                <ZZTOTAL_HST>HST</ZZTOTAL_HST>
+                <ZZTOTAL_PST>PST</ZZTOTAL_PST>
+                <ZZTOTAL_DIS>DIS</ZZTOTAL_DIS>
+                <ZZMODIF_DAT>00000000</ZZMODIF_DAT>
+            </ZE1EDP01>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>025</IDDAT>
+                <DATUM>20161116</DATUM>
+                <UZEIT>195427</UZEIT>
+            </E1EDP03>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>023</IDDAT>
+                <DATUM>20161116</DATUM>
+            </E1EDP03>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>026</IDDAT>
+                <DATUM>20161116</DATUM>
+            </E1EDP03>
+            <E1EDP05 SEGMENT="1">
+                <ALCKZ>+</ALCKZ>
+                <KSCHL>PR00</KSCHL>
+                <KOTXT>Price</KOTXT>
+                <BETRG>800.00</BETRG>
+                <KRATE>80.00</KRATE>
+                <UPRBS>       1</UPRBS>
+                <MEAUN>EA</MEAUN>
+                <KOEIN>USD</KOEIN>
+            </E1EDP05>
+
+            <E1EDP20 SEGMENT="1">
+                <WMENG>10.000</WMENG>
+                <EDATU>20161116</EDATU>
+            </E1EDP20>
+            <E1EDP19 SEGMENT="1">
+                <QUALF>002</QUALF>
+                <IDTNR>6000-08-0522</IDTNR>
+                <KTEXT>Redefine DVD 5-pack v4</KTEXT>
+            </E1EDP19>
+        </E1EDP01>
+        <E1EDP01 SEGMENT="1">
+            <POSEX>000020</POSEX>
+            <ACTION>000</ACTION>
+            <PSTYP>0</PSTYP>
+            <MENGE>20.000</MENGE>
+            <MENEE>EA</MENEE>
+            <PMENE>EA</PMENE>
+            <VPREI>55.00</VPREI>
+            <PEINH>1</PEINH>
+            <NETWR>1100.00</NETWR>
+            <NTGEW>20.000</NTGEW>
+            <GEWEI>KGM</GEWEI>
+            <CURCY>USD</CURCY>
+            <MATKL>YBF01</MATKL>
+            <ANTLF>9</ANTLF>
+            <BRGEW>20.000</BRGEW>
+            <PSTYV>TAN</PSTYV>
+            <WERKS>1750</WERKS>
+            <VSTEL>1711</VSTEL>
+            <ZE1EDP01 SEGMENT="1">
+                <ZZTOTAL_GST>000020</ZZTOTAL_GST>
+                <ZZTOTAL_HST>HST</ZZTOTAL_HST>
+                <ZZTOTAL_PST>PST</ZZTOTAL_PST>
+                <ZZTOTAL_DIS>DIS</ZZTOTAL_DIS>
+                <ZZMODIF_DAT>00000000</ZZMODIF_DAT>
+            </ZE1EDP01>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>025</IDDAT>
+                <DATUM>20161116</DATUM>
+                <UZEIT>195427</UZEIT>
+            </E1EDP03>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>023</IDDAT>
+                <DATUM>20161116</DATUM>
+            </E1EDP03>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>026</IDDAT>
+                <DATUM>20161116</DATUM>
+            </E1EDP03>
+            <E1EDP05 SEGMENT="1">
+                <ALCKZ>+</ALCKZ>
+                <KSCHL>PR00</KSCHL>
+                <KOTXT>Price</KOTXT>
+                <BETRG>1100.00</BETRG>
+                <KRATE>55.00</KRATE>
+                <UPRBS>       1</UPRBS>
+                <MEAUN>EA</MEAUN>
+                <KOEIN>USD</KOEIN>
+            </E1EDP05>
+            <E1EDP20 SEGMENT="1">
+                <WMENG>20.000</WMENG>
+                <EDATU>20161116</EDATU>
+            </E1EDP20>
+            <E1EDP19 SEGMENT="1">
+                <QUALF>002</QUALF>
+                <IDTNR>8000-02-0061</IDTNR>
+                <KTEXT>FG, REDEFINE ACUTE CARE V3 (10pk)</KTEXT>
+            </E1EDP19>
+        </E1EDP01>
+        <E1EDP01 SEGMENT="1">
+            <POSEX>000030</POSEX>
+            <ACTION>000</ACTION>
+            <PSTYP>0</PSTYP>
+            <MENGE>30.000</MENGE>
+            <MENEE>EA</MENEE>
+            <PMENE>EA</PMENE>
+            <VPREI>52.00</VPREI>
+            <PEINH>1</PEINH>
+            <NETWR>1560.00</NETWR>
+            <NTGEW>30.000</NTGEW>
+            <GEWEI>KGM</GEWEI>
+            <CURCY>USD</CURCY>
+            <MATKL>YBS01</MATKL>
+            <ANTLF>9</ANTLF>
+            <BRGEW>30.000</BRGEW>
+            <PSTYV>TAN</PSTYV>
+            <WERKS>1750</WERKS>
+            <VSTEL>1711</VSTEL>
+            <ZE1EDP01 SEGMENT="1">
+                <ZZTOTAL_GST>000030</ZZTOTAL_GST>
+                <ZZTOTAL_HST>HST</ZZTOTAL_HST>
+                <ZZTOTAL_PST>PST</ZZTOTAL_PST>
+                <ZZTOTAL_DIS>DIS</ZZTOTAL_DIS>
+                <ZZMODIF_DAT>00000000</ZZMODIF_DAT>
+            </ZE1EDP01>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>025</IDDAT>
+                <DATUM>20161116</DATUM>
+                <UZEIT>195427</UZEIT>
+            </E1EDP03>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>023</IDDAT>
+                <DATUM>20161116</DATUM>
+            </E1EDP03>
+            <E1EDP03 SEGMENT="1">
+                <IDDAT>026</IDDAT>
+                <DATUM>20161116</DATUM>
+            </E1EDP03>
+            <E1EDP05 SEGMENT="1">
+                <ALCKZ>+</ALCKZ>
+                <KSCHL>PR00</KSCHL>
+                <KOTXT>Price</KOTXT>
+                <BETRG>1560.00</BETRG>
+                <KRATE>52.00</KRATE>
+                <UPRBS>       1</UPRBS>
+                <MEAUN>EA</MEAUN>
+                <KOEIN>USD</KOEIN>
+            </E1EDP05>
+            <E1EDP20 SEGMENT="1">
+                <WMENG>30.000</WMENG>
+                <EDATU>20161116</EDATU>
+            </E1EDP20>
+            <E1EDP19 SEGMENT="1">
+                <QUALF>002</QUALF>
+                <IDTNR>8000-06-0027</IDTNR>
+                <KTEXT>FG, SOO 1 Wash Facial Cleanser</KTEXT>
+            </E1EDP19>
+        </E1EDP01>
+        <E1EDS01 SEGMENT="1">
+            <SUMID>001</SUMID>
+            <SUMME>3</SUMME>
+        </E1EDS01>
+        <E1EDS01 SEGMENT="1">
+            <SUMID>002</SUMID>
+            <SUMME>3460.00</SUMME>
+            <SUNIT>USD</SUNIT>
+        </E1EDS01>
+        <EDI_DS40 SEGMENT="1">
+            <MANDT>200</MANDT>
+            <DOCNUM>0000000009290605</DOCNUM>
+            <LOGDAT>20161212</LOGDAT>
+            <LOGTIM>143023</LOGTIM>
+            <STATUS>01</STATUS>
+            <STAMNO>000</STAMNO>
+            <UNAME>MKUMAR</UNAME>
+            <SEGNUM>000000</SEGNUM>
+        </EDI_DS40>
+        <EDI_DS40 SEGMENT="1">
+            <MANDT>200</MANDT>
+            <DOCNUM>0000000009290605</DOCNUM>
+            <LOGDAT>20161212</LOGDAT>
+            <LOGTIM>143023</LOGTIM>
+            <STATUS>30</STATUS>
+            <STAMQU>SAP</STAMQU>
+            <STAMID>B1</STAMID>
+            <STAMNO>006</STAMNO>
+            <STATYP>S</STATYP>
+            <STAPA1>Receiver exists</STAPA1>
+            <STAPA2>No filters</STAPA2>
+            <STAPA3>No conversion</STAPA3>
+            <STAPA4>No version change</STAPA4>
+            <STATXT>
+                <![CDATA[&, &, &, &]]>
+            </STATXT>
+            <UNAME>MKUMAR</UNAME>
+            <SEGNUM>000000</SEGNUM>
+        </EDI_DS40>
+        <EDI_DS40 SEGMENT="1">
+            <MANDT>200</MANDT>
+            <DOCNUM>0000000009290605</DOCNUM>
+            <LOGDAT>20161212</LOGDAT>
+            <LOGTIM>143027</LOGTIM>
+            <STATUS>03</STATUS>
+            <STAMQU>SAP</STAMQU>
+            <STAMID>EA</STAMID>
+            <STAMNO>095</STAMNO>
+            <STATYP>I</STATYP>
+            <STAPA1>http://172.16.15.146:8080/datahub-webapp/v1/idoc/r</STAPA1>
+            <STAPA2>eceiver</STAPA2>
+            <STAPA4>HTTP Response Code:200</STAPA4>
+            <STATXT>IDoc sent by HTTP in XML format</STATXT>
+            <UNAME>MKUMAR</UNAME>
+            <REPID>LEDI7F10</REPID>
+            <SEGNUM>000000</SEGNUM>
+        </EDI_DS40>
+    </IDOC>
+</ORDERS05>
